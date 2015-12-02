@@ -94,6 +94,7 @@ public final class AnnotatedFinder {
                         subscriberMethods.put(type, methods);
                     }
                     methods.add(new SourceMethod(thread, method));
+                    tagLength--;
                 } while (tagLength > 0);
             } else if (method.isAnnotationPresent(Produce.class)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
@@ -134,6 +135,7 @@ public final class AnnotatedFinder {
                         throw new IllegalArgumentException("Producer for type " + type + " has already been registered.");
                     }
                     producerMethods.put(type, new SourceMethod(thread, method));
+                    tagLength--;
                 } while (tagLength > 0);
             }
         }
