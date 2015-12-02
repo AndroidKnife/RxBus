@@ -16,6 +16,9 @@ gen/
 .gradle/
 build/
 /*/build/
+jniLibs
+local.properties
+reports
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -25,3 +28,21 @@ proguard/
 
 # Log Files
 *.log
+
+# idea
+.idea/
+
+.classpath
+.project
+.settings
+eclipsebin
+
+out
+lib
+
+*.iml
+classes
+
+obj
+
+.DS_Store

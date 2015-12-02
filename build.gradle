@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    minSdkVersion = 9
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.2'
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+}
+
+ext.deps = [
+        // Test Dependencies
+        junit             : 'junit:junit:4.12',
+        assertjcore       : 'org.assertj:assertj-core:1.7.1',
+        robolectric       : 'org.robolectric:robolectric:3.0',
+
+        // dependencies
+        rxandroid         : 'io.reactivex:rxandroid:1.0.1',
+        rxjava            : 'io.reactivex:rxjava:1.0.15',
+        timber            : 'com.hwangjr.utils:timber:1.0.0',
+        androidannotations: 'com.android.support:support-annotations:23.1.0',
+]
