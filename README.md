@@ -19,14 +19,14 @@ Just 2 Steps:
 
 Add dependency to your gradle file:
 ```groovy
-compile 'com.hwangjr.rxbus:rxbus:1.0.0'
+compile 'com.hwangjr.rxbus:rxbus:1.0.1'
 ```
 Or maven:
 ``` xml
 <dependency>
   <groupId>com.hwangjr.rxbus</groupId>
   <artifactId>rxbus</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>aar</type>
 </dependency>
 ```
