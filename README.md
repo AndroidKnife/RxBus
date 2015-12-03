@@ -6,9 +6,13 @@ I have use it in many projects, and now i think maybe someone would like it, so 
 
 RxBus support annotations(@produce/@subscribe), and it can provide you to produce/subscribe on other thread 
 like MAIN_THREAD, NEW_THREAD, IO, COMPUTATION, TRAMPOLINE, IMMEDIATE, even the EXECUTOR and HANDLER thread,
-more in [EventThread](rxbus/src/main/java/com/hwangjr/rxbus/thread/EventThread).
+more in [EventThread](rxbus/src/main/java/com/hwangjr/rxbus/thread/EventThread.java).
 
 Also RxBus provide the event tag to define the event. The method's first (and only) parameter and tag defines the event type.
+
+**Thanks to:**
+[square/otto](https://github.com/square/otto)
+[greenrobot/EventBus](https://github.com/greenrobot/EventBus)
 
 Usage
 --------
