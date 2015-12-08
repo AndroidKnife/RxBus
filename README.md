@@ -11,7 +11,9 @@ more in [EventThread](rxbus/src/main/java/com/hwangjr/rxbus/thread/EventThread.j
 Also RxBus provide the event tag to define the event. The method's first (and only) parameter and tag defines the event type.
 
 **Thanks to:**
+
 [square/otto](https://github.com/square/otto)
+
 [greenrobot/EventBus](https://github.com/greenrobot/EventBus)
 
 Usage
