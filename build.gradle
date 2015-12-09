@@ -40,6 +40,6 @@ ext.deps = [
         // dependencies
         rxandroid         : 'io.reactivex:rxandroid:1.0.1',
         rxjava            : 'io.reactivex:rxjava:1.0.15',
-        timber            : 'com.hwangjr.utils:timber:1.0.0',
+        timber            : 'com.hwangjr.utils:timber:4.1.0.0',
         androidannotations: 'com.android.support:support-annotations:23.1.0',
 ]

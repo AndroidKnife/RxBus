@@ -54,6 +54,10 @@ public static final class RxBus {
     }
 }
 ```
+Or just use the provided:
+``` java
+com.hwangjr.rxbus.RxBus
+```
 
 Add the code where you want to produce/subscribe events, and register and unregister the class.
 ``` java
