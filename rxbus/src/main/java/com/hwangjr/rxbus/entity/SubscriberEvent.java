@@ -75,7 +75,9 @@ public class SubscriberEvent extends Event {
                     @Override
                     public void call(Object event) {
                         try {
-                            handleEvent(event);
+                            if (valid) {
+                                handleEvent(event);
+                            }
                         } catch (InvocationTargetException e) {
                             throwRuntimeException("Could not dispatch event: " + event.getClass() + " to subscriber " + SubscriberEvent.this, e);
                         }
