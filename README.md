@@ -25,25 +25,25 @@ Just 2 Steps:
 
 Add dependency to your gradle file:
 ```groovy
-compile 'com.hwangjr.rxbus:rxbus:1.0.1'
+compile 'com.hwangjr.rxbus:rxbus:1.0.2'
 ```
 Or maven:
 ``` xml
 <dependency>
   <groupId>com.hwangjr.rxbus</groupId>
   <artifactId>rxbus</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <type>aar</type>
 </dependency>
 ```
 
 **TIP:** Maybe you also use the [AndroidKnife/Utils/timber](https://github.com/AndroidKnife/Utils/tree/master/timber) to log your message, you may need to exclude the timber:
 ``` groovy
-compile ('com.hwangjr.rxbus:rxbus:1.0.1') {
+compile ('com.hwangjr.rxbus:rxbus:1.0.2') {
     exclude group: 'com.hwangjr.utils', module: 'timber'
 }
 ```
-
+en
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/).
 
 **STEP 2**
