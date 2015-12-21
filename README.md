@@ -37,6 +37,13 @@ Or maven:
 </dependency>
 ```
 
+**TIP:** Maybe you also use the [AndroidKnife/Utils/timber](https://github.com/AndroidKnife/Utils/tree/master/timber) to log your message, you may need to exclude the timber:
+``` groovy
+compile ('com.hwangjr.rxbus:rxbus:1.0.1') {
+    exclude group: 'com.hwangjr.utils', module: 'timber'
+}
+```
+
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/).
 
 **STEP 2**
