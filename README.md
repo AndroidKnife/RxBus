@@ -25,21 +25,21 @@ Just 2 Steps:
 
 Add dependency to your gradle file:
 ```groovy
-compile 'com.hwangjr.rxbus:rxbus:1.0.2'
+compile 'com.hwangjr.rxbus:rxbus:1.0.3'
 ```
 Or maven:
 ``` xml
 <dependency>
   <groupId>com.hwangjr.rxbus</groupId>
   <artifactId>rxbus</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <type>aar</type>
 </dependency>
 ```
 
 **TIP:** Maybe you also use the [AndroidKnife/Utils/timber](https://github.com/AndroidKnife/Utils/tree/master/timber) to log your message, you may need to exclude the timber:
 ``` groovy
-compile ('com.hwangjr.rxbus:rxbus:1.0.2') {
+compile ('com.hwangjr.rxbus:rxbus:1.0.3') {
     exclude group: 'com.hwangjr.utils', module: 'timber'
 }
 ```
@@ -48,7 +48,11 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 **STEP 2**
 
-Make RxBus instance is a better way:
+Just use the provided(Any Thread Enforce):
+``` java
+com.hwangjr.rxbus.RxBus
+```
+Or make RxBus instance is a better choice:
 ``` java
 public static final class RxBus {
     private static Bus sBus;
@@ -60,10 +64,6 @@ public static final class RxBus {
         return sBus;
     }
 }
-```
-Or just use the provided:
-``` java
-com.hwangjr.rxbus.RxBus
 ```
 
 Add the code where you want to produce/subscribe events, and register and unregister the class.
