@@ -7,10 +7,14 @@ import com.hwangjr.rxbus.thread.EventThread;
 import java.util.Random;
 
 /**
- * Created by hwangjr on 2/23/16.
+ * Mouse mam to birth so many mouse.
  */
 public class MouseMam {
 
+    /**
+     * Tell Tom to begin the war!
+     * @return
+     */
     @Produce(
             thread = EventThread.NEW_THREAD,
             tags = {@Tag}
@@ -19,6 +23,10 @@ public class MouseMam {
         return "Ohh, you have so many mousese!! On " + Thread.currentThread();
     }
 
+    /**
+     * birth a mouse, maybe white/black/dead mouse.
+     * @return
+     */
     public Mouse birth() {
         Random random = new Random();
         int godSeed = random.nextInt() % 3;
@@ -32,6 +40,9 @@ public class MouseMam {
     }
 }
 
+/**
+ * White mouse
+ */
 class WhiteMouse implements Mouse {
     @Override
     public void squeak() {
@@ -44,6 +55,9 @@ class WhiteMouse implements Mouse {
     }
 }
 
+/**
+ * Black mouse
+ */
 class BlackMouse implements Mouse {
     @Override
     public void squeak() {
@@ -56,6 +70,9 @@ class BlackMouse implements Mouse {
     }
 }
 
+/**
+ * Dead mouse
+ */
 class DeadMouse implements Mouse {
     @Override
     public void squeak() {

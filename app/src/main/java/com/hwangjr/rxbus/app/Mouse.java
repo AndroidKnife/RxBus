@@ -1,7 +1,7 @@
 package com.hwangjr.rxbus.app;
 
 /**
- * Created by hwangjr on 2/23/16.
+ * Mouse to squeak.
  */
 public interface Mouse {
     void squeak();

@@ -1,10 +1,7 @@
 package com.hwangjr.rxbus.app;
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.thread.EventThread;
-
 /**
- * Created by hwangjr on 2/23/16.
+ * Cat to catch mouse.
  */
 public interface Cat {
     void caught(Mouse mouse);

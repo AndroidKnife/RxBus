@@ -13,11 +13,24 @@ import java.util.ArrayList;
 
 import timber.log.Timber;
 
+/**
+ * Activity to show the story.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Mam to birth Tom.
+     */
     private CatMam catMam = new CatMam();
+    /**
+     * Mam to birth mouse.
+     */
     private MouseMam mouseMam = new MouseMam();
 
+    /**
+     * Init view and bus provider.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         BusProvider.getInstance().register(catMam.birth());
     }
 
+    /**
+     * Unregister the register object.
+     */
     @Override
     protected void onDestroy() {
         BusProvider.getInstance().unregister(mouseMam);

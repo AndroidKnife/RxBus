@@ -7,10 +7,13 @@ import android.os.StrictMode;
 import timber.log.Timber;
 
 /**
- * Created by hwangjr on 2/24/16.
+ * Application to init timber and strict mode etc in debug mode.
  */
 public class AppApplication extends Application {
 
+    /**
+     * Init timber and strict mode in debug mode.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
