@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
+import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 import timber.log.Timber;
 
@@ -15,15 +16,15 @@ import timber.log.Timber;
 public class RxBusOlder {
     private static final boolean DEBUG = true;
 
-    private static RxBusOlder mInstance;
+    private static RxBusOlder sInstance;
 
     private ConcurrentHashMap<Object, List<Subject>> mSubjectsMapper = new ConcurrentHashMap<>();
 
     public static synchronized RxBusOlder instance() {
-        if (mInstance == null) {
-            mInstance = new RxBusOlder();
+        if (sInstance == null) {
+            sInstance = new RxBusOlder();
         }
-        return mInstance;
+        return sInstance;
     }
 
     private RxBusOlder() {
@@ -36,7 +37,7 @@ public class RxBusOlder {
             mSubjectsMapper.put(tag, subjectList);
         }
 
-        Subject<T, T> subject = PublishSubject.create();
+        Subject<T, T> subject = new SerializedSubject<>(PublishSubject.<T>create());
         subjectList.add(subject);
         if (DEBUG) {
             Timber.d("[register] mSubjectsMapper: " + mSubjectsMapper);
