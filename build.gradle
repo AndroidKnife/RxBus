@@ -24,9 +24,9 @@ task clean(type: Delete) {
 
 ext {
     minSdkVersion = 9
-    targetSdkVersion = 23
-    compileSdkVersion = 23
-    buildToolsVersion = '23.0.2'
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = '24.0.0'
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }
@@ -38,8 +38,8 @@ ext.deps = [
         robolectric       : 'org.robolectric:robolectric:3.0',
 
         // dependencies
-        rxandroid         : 'io.reactivex:rxandroid:1.0.1',
-        rxjava            : 'io.reactivex:rxjava:1.0.15',
-        timber            : 'com.hwangjr.utils:timber:4.1.0.0',
-        androidannotations: 'com.android.support:support-annotations:23.1.0',
+        rxandroid         : 'io.reactivex:rxandroid:1.2.1',
+        rxjava            : 'io.reactivex:rxjava:1.1.6',
+        timber            : 'com.jakewharton.timber:timber:4.1.2',
+        androidannotations: 'com.android.support:support-annotations:24.0.0',
 ]
