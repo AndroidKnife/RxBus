@@ -1,15 +1,19 @@
-package com.hwangjr.rxbus;
+package com.hwangjr.rxbus.entity;
 
-import com.hwangjr.rxbus.entity.SubscriberEvent;
 import com.hwangjr.rxbus.thread.EventThread;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import rx.Subscriber;
 import rx.functions.Action1;
+import rx.observers.TestSubscriber;
+import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
@@ -115,6 +119,50 @@ public class EventSubscriberTest {
         event.handle(new Object());
     }
 
+    @Test
+    public void backPressure() throws NoSuchMethodException {
+        Method method = getPrintMethod();
+        final SubscriberEvent subscriber = new SubscriberEvent(this, method, EventThread.IO);
+
+        Subject subject = PublishSubject.create();
+        TestSubscriber testSubscriber = TestSubscriber.create(new Subscriber() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(Object o) {
+                try {
+                    if (subscriber.isValid()) {
+                        subscriber.handleEvent(0);
+                    }
+                } catch (InvocationTargetException e) {
+                    subscriber.throwRuntimeException("Could not dispatch event: " + o.getClass() + " to subscriber " + subscriber, e);
+                }
+            }
+        });
+        subject.onBackpressureBuffer().observeOn(EventThread.getScheduler(EventThread.IO))
+                .subscribe(testSubscriber);
+        try {
+            Field subjectField = subscriber.getClass().getDeclaredField("subject");
+            subjectField.setAccessible(true);
+            subjectField.set(subscriber, subject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 2000; i++) {
+            System.out.println("back pressure : " + i);
+            subscriber.getSubject().onNext(new Object());
+        }
+        subscriber.getSubject().onCompleted();
+        testSubscriber.assertNoErrors();
+    }
+
     private Method getRecordingMethod() throws NoSuchMethodException {
         return getClass().getMethod("recordingMethod", Object.class);
     }
@@ -125,6 +173,14 @@ public class EventSubscriberTest {
 
     private Method getErrorThrowingMethod() throws NoSuchMethodException {
         return getClass().getMethod("errorThrowingMethod", Object.class);
+    }
+
+    private Method getPrintMethod() throws NoSuchMethodException {
+        return getClass().getMethod("printMethod", Object.class);
+    }
+
+    public void printMethod(Object arg) {
+        System.out.print("print arg=" + arg);
     }
 
     /**

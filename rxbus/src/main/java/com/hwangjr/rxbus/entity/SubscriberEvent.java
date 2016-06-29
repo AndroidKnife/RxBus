@@ -70,7 +70,7 @@ public class SubscriberEvent extends Event {
 
     private void initObservable() {
         subject = PublishSubject.create();
-        subject.observeOn(EventThread.getScheduler(thread))
+        subject.onBackpressureBuffer().observeOn(EventThread.getScheduler(thread))
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object event) {
@@ -114,7 +114,7 @@ public class SubscriberEvent extends Event {
      * @throws InvocationTargetException if the wrapped method throws any {@link Throwable} that is not
      *                                   an {@link Error} ({@code Error}s are propagated as-is).
      */
-    private void handleEvent(Object event) throws InvocationTargetException {
+    protected void handleEvent(Object event) throws InvocationTargetException {
         if (!valid) {
             throw new IllegalStateException(toString() + " has been invalidated and can no longer handle events.");
         }
