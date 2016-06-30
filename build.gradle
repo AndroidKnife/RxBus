@@ -38,8 +38,11 @@ ext.deps = [
         robolectric       : 'org.robolectric:robolectric:3.0',
 
         // dependencies
+        appcompatV7       : 'com.android.support:appcompat-v7:24.0.0',
+        androidannotations: 'com.android.support:support-annotations:24.0.0',
+        design            : 'com.android.support:design:24.0.0',
+
         rxandroid         : 'io.reactivex:rxandroid:1.2.1',
         rxjava            : 'io.reactivex:rxjava:1.1.6',
         timber            : 'com.jakewharton.timber:timber:4.1.2',
-        androidannotations: 'com.android.support:support-annotations:24.0.0',
 ]
