@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.0.4 *(2016-06-30)*
+---------------------------
+
+1. Fix BackPressure exception, #12 issue
+2. Update from PublishSubject to SerializedSubject : [RxBus/RxBusOlder.java at master · AndroidKnife/RxBus](https://github.com/AndroidKnife/RxBus/blob/master/rxbus/src/main/java/com/hwangjr/rxbus/RxBusOlder.java)
+3. Update dependencies
+
 Version 1.0.3 *(2016-02-24)*
 ---------------------------
 
