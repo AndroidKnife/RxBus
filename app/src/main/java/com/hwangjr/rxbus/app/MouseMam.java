@@ -20,7 +20,7 @@ public class MouseMam {
             tags = {@Tag}
     )
     public String tell() {
-        return "Ohh, you have so many mousese!! On " + Thread.currentThread();
+        return "Ohh, you have so many mouses!! On " + Thread.currentThread();
     }
 
     /**
