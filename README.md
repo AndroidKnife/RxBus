@@ -57,7 +57,7 @@ Or make RxBus instance is a better choice:
 public static final class RxBus {
     private static Bus sBus;
     
-    public static synchronized get() {
+    public static synchronized Bus get() {
         if (sBus == null) {
             sBus = new Bus();
         }
