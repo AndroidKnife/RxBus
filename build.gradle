@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.1.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -15,9 +15,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots'
-        }
     }
 }
 
@@ -29,7 +26,7 @@ ext {
     minSdkVersion = 9
     targetSdkVersion = 24
     compileSdkVersion = 24
-    buildToolsVersion = '24.0.0'
+    buildToolsVersion = '24.0.2'
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }
@@ -41,11 +38,11 @@ ext.deps = [
         robolectric       : 'org.robolectric:robolectric:3.0',
 
         // dependencies
-        appcompatV7       : 'com.android.support:appcompat-v7:24.0.0',
-        androidannotations: 'com.android.support:support-annotations:24.0.0',
-        design            : 'com.android.support:design:24.0.0',
+        appcompatV7       : 'com.android.support:appcompat-v7:24.2.0',
+        androidannotations: 'com.android.support:support-annotations:24.2.0',
+        design            : 'com.android.support:design:24.2.0',
 
         rxandroid         : 'io.reactivex:rxandroid:1.2.1',
-        rxjava            : 'io.reactivex:rxjava:1.1.6',
-        timber            : 'com.jakewharton.timber:timber:4.1.3-SNAPSHOT',
+        rxjava            : 'io.reactivex:rxjava:1.1.9',
+        timber            : 'com.jakewharton.timber:timber:4.3.0',
 ]
