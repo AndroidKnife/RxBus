@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.hwangjr.rxbus.RxBus;
+
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Init view and bus provider.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -50,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BusProvider.getInstance().register(mouseMam);
-        BusProvider.getInstance().register(catMam.birth());
+        RxBus.get().register(mouseMam);
+        RxBus.get().register(catMam.birth());
     }
 
     /**
@@ -59,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
-        BusProvider.getInstance().unregister(mouseMam);
+        RxBus.get().unregister(mouseMam);
         ArrayList<Cat> cats = catMam.getCats();
         for (Cat cat : cats) {
-            BusProvider.getInstance().unregister(cat);
+            RxBus.get().unregister(cat);
         }
         super.onDestroy();
     }

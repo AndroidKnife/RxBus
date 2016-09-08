@@ -1,5 +1,6 @@
 package com.hwangjr.rxbus.app;
 
+import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -13,6 +14,7 @@ public class MouseMam {
 
     /**
      * Tell Tom to begin the war!
+     *
      * @return
      */
     @Produce(
@@ -25,6 +27,7 @@ public class MouseMam {
 
     /**
      * birth a mouse, maybe white/black/dead mouse.
+     *
      * @return
      */
     public Mouse birth() {
@@ -46,7 +49,7 @@ public class MouseMam {
 class WhiteMouse implements Mouse {
     @Override
     public void squeak() {
-        BusProvider.getInstance().post(Constants.EventType.TAG_STORY, this);
+        RxBus.get().post(Constants.EventType.TAG_STORY, this);
     }
 
     @Override
@@ -61,7 +64,7 @@ class WhiteMouse implements Mouse {
 class BlackMouse implements Mouse {
     @Override
     public void squeak() {
-        BusProvider.getInstance().post(Constants.EventType.TAG_STORY, this);
+        RxBus.get().post(Constants.EventType.TAG_STORY, this);
     }
 
     @Override
@@ -76,7 +79,7 @@ class BlackMouse implements Mouse {
 class DeadMouse implements Mouse {
     @Override
     public void squeak() {
-        BusProvider.getInstance().post(this);
+        RxBus.get().post(this);
     }
 
     @Override
