@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.0.5 *(2016-09-08)*
+----------------------------
+
+1. Level down minimum support sdk to 9, #16 issue
+2. Update example
+3. Update dependencies
+
 Version 1.0.4 *(2016-06-30)*
 ---------------------------
 
