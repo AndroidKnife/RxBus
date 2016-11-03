@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 @Deprecated
@@ -37,7 +36,8 @@ public class RxBusOlder {
             mSubjectsMapper.put(tag, subjectList);
         }
 
-        Subject<T, T> subject = new SerializedSubject<>(PublishSubject.<T>create());
+        // FIXME: Won't serialized the PublishSubject to SerializedSubject, thread unsafe
+        Subject<T> subject = PublishSubject.create();
         subjectList.add(subject);
         if (DEBUG) {
             Timber.d("[register] mSubjectsMapper: " + mSubjectsMapper);
@@ -69,5 +69,4 @@ public class RxBusOlder {
             Timber.d("[send] mSubjectsMapper: " + mSubjectsMapper);
         }
     }
-
 }

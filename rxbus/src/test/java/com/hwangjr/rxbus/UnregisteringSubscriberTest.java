@@ -71,7 +71,7 @@ public class UnregisteringSubscriberTest {
             private int calls = 0;
 
             @Produce(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public String produceString() {
                 calls++;
@@ -84,14 +84,14 @@ public class UnregisteringSubscriberTest {
         bus.register(producer);
         bus.register(new Object() {
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void firstUnsubscribeTheProducer(String produced) {
                 bus.unregister(producer);
             }
 
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void shouldNeverBeCalled(String uhoh) {
                 fail("Shouldn't receive events from an unregistered producer.");

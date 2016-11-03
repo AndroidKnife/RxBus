@@ -7,7 +7,7 @@ public class StringProducer {
     public static final String VALUE = "Hello, Producer";
 
     @Produce(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public String produce() {
         return VALUE;

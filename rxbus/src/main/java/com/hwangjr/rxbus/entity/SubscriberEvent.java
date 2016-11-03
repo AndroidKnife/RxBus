@@ -5,9 +5,9 @@ import com.hwangjr.rxbus.thread.EventThread;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import rx.functions.Action1;
-import rx.subjects.PublishSubject;
-import rx.subjects.Subject;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * Wraps a single-argument 'subscriber' method on a specific object.
@@ -70,10 +70,10 @@ public class SubscriberEvent extends Event {
 
     private void initObservable() {
         subject = PublishSubject.create();
-        subject.onBackpressureBuffer().observeOn(EventThread.getScheduler(thread))
-                .subscribe(new Action1<Object>() {
+        subject.observeOn(EventThread.getScheduler(thread))
+                .subscribe(new Consumer() {
                     @Override
-                    public void call(Object event) {
+                    public void accept(Object event) {
                         try {
                             if (valid) {
                                 handleEvent(event);

@@ -42,7 +42,7 @@ ext.deps = [
         androidannotations: 'com.android.support:support-annotations:24.2.0',
         design            : 'com.android.support:design:24.2.0',
 
-        rxandroid         : 'io.reactivex:rxandroid:1.2.1',
-        rxjava            : 'io.reactivex:rxjava:1.2.1',
+        rxandroid         : 'io.reactivex.rxjava2:rxandroid:2.0.0',
+        rxjava            : 'io.reactivex.rxjava2:rxjava:2.0.0',
         timber            : 'com.jakewharton.timber:timber:4.3.1',
 ]

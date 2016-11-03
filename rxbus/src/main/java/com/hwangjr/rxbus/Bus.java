@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -230,9 +230,9 @@ public class Bus {
     }
 
     private void dispatchProducerResult(final SubscriberEvent subscriberEvent, ProducerEvent producer) {
-        producer.produce().subscribe(new Action1<Object>() {
+        producer.produce().subscribe(new Consumer() {
             @Override
-            public void call(Object event) {
+            public void accept(Object event) {
                 if (event != null) {
                     dispatch(event, subscriberEvent);
                 }

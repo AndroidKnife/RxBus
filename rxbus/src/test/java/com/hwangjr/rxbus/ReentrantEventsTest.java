@@ -40,7 +40,7 @@ public class ReentrantEventsTest {
         List<Object> eventsReceived = new ArrayList<Object>();
 
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void listenForStrings(String event) {
             eventsReceived.add(event);
@@ -53,7 +53,7 @@ public class ReentrantEventsTest {
         }
 
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void listenForDoubles(Double event) {
             assertTrue("I received an event when I wasn't ready!", ready);
@@ -77,7 +77,7 @@ public class ReentrantEventsTest {
 
     public class EventProcessor {
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void listenForStrings(String event) {
             bus.post(SECOND);
@@ -88,7 +88,7 @@ public class ReentrantEventsTest {
         List<Object> eventsReceived = new ArrayList<Object>();
 
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void listenForEverything(Object event) {
             eventsReceived.add(event);

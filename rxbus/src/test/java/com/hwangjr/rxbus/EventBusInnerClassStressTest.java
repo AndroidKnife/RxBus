@@ -18,7 +18,7 @@ public class EventBusInnerClassStressTest {
 
     class Sub {
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void in(Object o) {
             called = true;
@@ -45,7 +45,7 @@ public class EventBusInnerClassStressTest {
         Bus eb = new Bus(ThreadEnforcer.ANY);
         eb.register(new Object() {
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void in(String o) {
                 called = true;
@@ -65,7 +65,7 @@ public class EventBusInnerClassStressTest {
         Bus eb = new Bus(ThreadEnforcer.ANY);
         eb.register(new Object() {
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void in(Object o) {
                 called = true;

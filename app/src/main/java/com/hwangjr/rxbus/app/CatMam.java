@@ -46,7 +46,7 @@ class Tom implements Cat {
      * @param mouseWar
      */
     @Subscribe(
-            thread = EventThread.IMMEDIATE,
+            thread = EventThread.SINGLE,
             tags = {@Tag}
     )
     public void heardFromMouseMam(String mouseWar) {
@@ -59,7 +59,7 @@ class Tom implements Cat {
      * @param mouseWar
      */
     @Subscribe(
-            thread = EventThread.IMMEDIATE,
+            thread = EventThread.SINGLE,
             tags = {@Tag(Constants.EventType.TAG_STORY)}
     )
     public void heardFromMouse(String mouseWar) {
@@ -109,7 +109,7 @@ class Tom implements Cat {
      * @param event
      */
     @Subscribe(
-            thread = EventThread.IMMEDIATE,
+            thread = EventThread.SINGLE,
             tags = {@Tag, @Tag(Constants.EventType.TAG_STORY)}
     )
     public void caught(DeadEvent event) {

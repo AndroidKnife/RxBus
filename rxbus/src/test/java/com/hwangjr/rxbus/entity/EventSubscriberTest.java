@@ -42,7 +42,7 @@ public class EventSubscriberTest {
     public void basicMethodCall() throws Exception {
         Method method = getRecordingMethod();
 
-        SubscriberEvent subscriber = new SubscriberEvent(this, method, EventThread.IMMEDIATE);
+        SubscriberEvent subscriber = new SubscriberEvent(this, method, EventThread.SINGLE);
 
         subscriber.handle(FIXTURE_ARGUMENT);
 
@@ -57,7 +57,7 @@ public class EventSubscriberTest {
     @Test
     public void rejectionOfNullMethods() {
         try {
-            new SubscriberEvent(this, null, EventThread.IMMEDIATE);
+            new SubscriberEvent(this, null, EventThread.SINGLE);
             fail("SubscriberEvent must immediately reject null methods.");
         } catch (NullPointerException expected) {
             // Hooray!
@@ -71,7 +71,7 @@ public class EventSubscriberTest {
     public void rejectionOfNullTargets() throws NoSuchMethodException {
         Method method = getRecordingMethod();
         try {
-            new SubscriberEvent(null, method, EventThread.IMMEDIATE);
+            new SubscriberEvent(null, method, EventThread.SINGLE);
             fail("SubscriberEvent must immediately reject null targets.");
         } catch (NullPointerException expected) {
             // Huzzah!
@@ -81,7 +81,7 @@ public class EventSubscriberTest {
     @Test
     public void exceptionWrapping() throws NoSuchMethodException {
         Method method = getExceptionThrowingMethod();
-        SubscriberEvent event = new SubscriberEvent(this, method, EventThread.IMMEDIATE);
+        SubscriberEvent event = new SubscriberEvent(this, method, EventThread.SINGLE);
 
         event.getSubject().subscribe(new Action1() {
             @Override
@@ -102,7 +102,7 @@ public class EventSubscriberTest {
     @Test
     public void errorPassthrough() throws InvocationTargetException, NoSuchMethodException {
         Method method = getErrorThrowingMethod();
-        SubscriberEvent event = new SubscriberEvent(this, method, EventThread.IMMEDIATE);
+        SubscriberEvent event = new SubscriberEvent(this, method, EventThread.SINGLE);
 
         event.getSubject().subscribe(new Action1() {
             @Override

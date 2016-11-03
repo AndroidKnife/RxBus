@@ -67,7 +67,7 @@ public class AnnotatedSubscriberFinderTest {
             }
 
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void subscriber(Object o) {
                 subscriberEvents.add(o);
@@ -108,7 +108,7 @@ public class AnnotatedSubscriberFinderTest {
             }
 
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             @Override
             public void overriddenAndAnnotatedInSubclass(Object o) {
@@ -159,7 +159,7 @@ public class AnnotatedSubscriberFinderTest {
             }
 
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             @Override
             public void overriddenAndAnnotatedInSubclass(Object o) {
@@ -192,7 +192,7 @@ public class AnnotatedSubscriberFinderTest {
 
         static class InterfaceSubscriber {
             @Subscribe(
-                    thread = EventThread.IMMEDIATE
+                    thread = EventThread.SINGLE
             )
             public void whatever(Serializable thingy) {
                 // Do nothing.

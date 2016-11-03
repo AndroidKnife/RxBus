@@ -19,7 +19,7 @@ public class UnregisteringStringCatcher {
     }
 
     @Subscribe(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public void unregisterOnString(String event) {
         bus.unregister(this);
@@ -27,26 +27,26 @@ public class UnregisteringStringCatcher {
     }
 
     @Subscribe(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public void zzzSleepinOnStrings(String event) {
         events.add(event);
     }
 
     @Subscribe(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public void haveAnInteger(Integer event) {
     }
 
     @Subscribe(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public void enjoyThisLong(Long event) {
     }
 
     @Subscribe(
-            thread = EventThread.IMMEDIATE
+            thread = EventThread.SINGLE
     )
     public void perhapsATastyDouble(Double event) {
     }

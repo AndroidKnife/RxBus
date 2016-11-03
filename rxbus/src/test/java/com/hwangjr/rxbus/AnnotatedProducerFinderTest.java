@@ -26,7 +26,7 @@ public class AnnotatedProducerFinderTest {
         final List<Object> events = new ArrayList<Object>();
 
         @Subscribe(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public void subscribe(Object o) {
             events.add(o);
@@ -39,7 +39,7 @@ public class AnnotatedProducerFinderTest {
         int produceCalled = 0;
 
         @Produce(
-                thread = EventThread.IMMEDIATE
+                thread = EventThread.SINGLE
         )
         public Object produceIt() {
             produceCalled += 1;

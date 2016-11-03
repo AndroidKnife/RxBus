@@ -5,8 +5,11 @@ import com.hwangjr.rxbus.thread.EventThread;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
 
 /**
  * Wraps a 'producer' method on a specific object.
@@ -72,18 +75,18 @@ public class ProducerEvent extends Event {
     /**
      * Invokes the wrapped producer method and produce a {@link Observable}.
      */
-    public Observable produce() {
-        return Observable.create(new Observable.OnSubscribe<Object>() {
+    public Flowable produce() {
+        return Flowable.create(new FlowableOnSubscribe() {
             @Override
-            public void call(Subscriber<? super Object> subscriber) {
+            public void subscribe(FlowableEmitter emitter) throws Exception {
                 try {
-                    subscriber.onNext(produceEvent());
-                    subscriber.onCompleted();
+                    emitter.onNext(produceEvent());
+                    emitter.onComplete();
                 } catch (InvocationTargetException e) {
                     throwRuntimeException("Producer " + ProducerEvent.this + " threw an exception.", e);
                 }
             }
-        }).subscribeOn(EventThread.getScheduler(thread));
+        }, BackpressureStrategy.BUFFER).subscribeOn(EventThread.getScheduler(thread));
     }
 
     /**
