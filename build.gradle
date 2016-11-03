@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -43,6 +43,6 @@ ext.deps = [
         design            : 'com.android.support:design:24.2.0',
 
         rxandroid         : 'io.reactivex:rxandroid:1.2.1',
-        rxjava            : 'io.reactivex:rxjava:1.1.9',
-        timber            : 'com.jakewharton.timber:timber:4.3.0',
+        rxjava            : 'io.reactivex:rxjava:1.2.1',
+        timber            : 'com.jakewharton.timber:timber:4.3.1',
 ]
