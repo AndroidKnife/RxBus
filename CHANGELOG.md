@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.0-beta *(2016-11-25)*
+---------------------------------
+
+1. Update dependency RxJava and RxAndroid to 2.x
+
 Version 1.0.5 *(2016-09-08)*
 ----------------------------
 
