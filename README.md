@@ -1,5 +1,8 @@
 RxBus - An event bus by [ReactiveX/RxJava](https://github.com/ReactiveX/RxJava)/[ReactiveX/RxAndroid](https://github.com/ReactiveX/RxAndroid)
-=============================
+=============================================================================================================================================
+
+##The branch is modified to AbstractProcessor 
+
 This is an event bus designed to allowing your application to communicate efficiently.
 
 I have use it in many projects, and now i think maybe someone would like it, so i publish it.
