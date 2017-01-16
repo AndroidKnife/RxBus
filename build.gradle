@@ -45,4 +45,9 @@ ext.deps = [
         rxandroid         : 'io.reactivex:rxandroid:1.2.1',
         rxjava            : 'io.reactivex:rxjava:1.1.9',
         timber            : 'com.jakewharton.timber:timber:4.3.0',
+
+        // rxbus
+        rxbus             : ':rxbus',
+        rxbus_annotations : ':rxbus-annotations',
+        rxbus_compiler    : ':rxbus-compiler'
 ]

@@ -1,34 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.hwangjr.rxbus.MainActivity">
+    >
 
-    <android.support.design.widget.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:orientation="horizontal">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <Button
+            android:id="@+id/main_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send"
+            android:textAllCaps="false"
+            />
 
-    </android.support.design.widget.AppBarLayout>
+        <Button
+            android:id="@+id/main_bt_void"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send void"
+            android:textAllCaps="false"
+            />
 
-    <include layout="@layout/content_main" />
+    </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
 
-</android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/main_bt_tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tag1"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/main_bt_tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tag2"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/main_bt_tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tag3"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_vp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/main_fl"/>
+
+    <FrameLayout
+        android:id="@+id/main_fl"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

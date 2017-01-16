@@ -20,6 +20,7 @@ dependencies {
     compile deps.rxandroid
     compile deps.timber
     compile deps.androidannotations
+    compile project(deps.rxbus_annotations)
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
