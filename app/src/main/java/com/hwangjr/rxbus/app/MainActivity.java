@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Birth a mouse and squeak ! " + mouse, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 Timber.e("Haha, i am " + mouse);
+                RxBus.get().post(new TomFather());
             }
         });
 

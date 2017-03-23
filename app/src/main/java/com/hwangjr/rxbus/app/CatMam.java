@@ -37,9 +37,19 @@ public class CatMam {
 }
 
 /**
+ * test whether this method is effective which is inherit from super class
+ */
+class TomFather {
+    @Subscribe
+    public void caught(TomFather tomFather) {
+        Timber.e("Caught TomFather: " + tomFather.toString() + " On " + Thread.currentThread());
+    }
+}
+
+/**
  * Cat Tom
  */
-class Tom implements Cat {
+class Tom extends TomFather implements Cat {
     /**
      * Heard from mouse mam, war has begin!
      *
