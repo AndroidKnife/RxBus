@@ -241,6 +241,49 @@ public class Bus {
     }
 
     /**
+     * Whether all the subscriber methods on {@code object} to receive events and producer methods to provide events has registered.
+     * <p/>
+     * If any subscribers and producers has registered, it will return true, alse false.
+     *
+     * @param object object whose subscriber methods should be registered.
+     * @throws NullPointerException if the object is null.
+     */
+    @Deprecated
+    public boolean hasRegistered(Object object) {
+        if (object == null) {
+            throw new NullPointerException("Object to register must not be null.");
+        }
+
+        boolean hasProducerRegistered = false, hasSubscriberRegistered = false;
+        Map<EventType, ProducerEvent> foundProducers = finder.findAllProducers(object);
+        for (EventType type : foundProducers.keySet()) {
+
+            final ProducerEvent producer = foundProducers.get(type);
+            hasProducerRegistered = producersByType.containsValue(producer);
+            if (hasProducerRegistered) {
+                break;
+            }
+        }
+
+        if (!hasProducerRegistered) {
+            Map<EventType, Set<SubscriberEvent>> foundSubscribersMap = finder.findAllSubscribers(object);
+            for (EventType type : foundSubscribersMap.keySet()) {
+                Set<SubscriberEvent> subscribers = subscribersByType.get(type);
+                if (subscribers != null && subscribers.size() > 0) {
+                    final Set<SubscriberEvent> foundSubscribers = foundSubscribersMap.get(type);
+                    // check the first subscriber, Zzzzz...
+                    SubscriberEvent foundSubscriber = !foundSubscribers.isEmpty() ? foundSubscribers.iterator().next() : null;
+                    hasSubscriberRegistered = subscribers.contains(foundSubscriber);
+                    if (hasSubscriberRegistered) {
+                        break;
+                    }
+                }
+            }
+        }
+        return hasProducerRegistered || hasSubscriberRegistered;
+    }
+
+    /**
      * Unregisters all producer and subscriber methods on a registered {@code object}.
      *
      * @param object object whose producer and subscriber methods should be unregistered.

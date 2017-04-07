@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         RxBus.get().register(mouseMam);
         RxBus.get().register(catMam.birth());
+
+        Timber.e("Moust Mam has registed? " + RxBus.get().hasRegistered(mouseMam));
     }
 
     /**
