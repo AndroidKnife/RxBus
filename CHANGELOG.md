@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.0.6 *(2017-07-07)*
+----------------------------
+
+1. add check register method
+2. update dependencies
+
 Version 1.0.5 *(2016-09-08)*
 ----------------------------
 
