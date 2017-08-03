@@ -11,16 +11,22 @@ public class RxBus {
     /**
      * Instance of {@link Bus}
      */
-    private static Bus sBus;
+    private volatile static Bus sBus;
+
+    private RxBus() {
+    }
 
     /**
      * Get the instance of {@link Bus}
      *
      * @return
      */
-    public static synchronized Bus get() {
+    public static Bus get() {
         if (sBus == null) {
-            sBus = new Bus(ThreadEnforcer.ANY);
+            synchronized (RxBus.class) {
+                if (sBus F == null)
+                sBus = new Bus(ThreadEnforcer.ANY);
+            }
         }
         return sBus;
     }
