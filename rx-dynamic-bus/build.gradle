@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'RxDynamicBus'
+    bintrayName = 'rx-dynamic-bus'
+
+    publishedGroupId = 'com.baytsif'
+    libraryName = 'RxDynamicBus'
+    artifact = 'rx-dynamic-bus'
+
+    libraryDescription = 'rx bus with dynamic subscriptions'
+
+    siteUrl = 'https://github.com/baytsif/RxDynamicBus'
+    gitUrl = 'https://github.com/baytsif/RxDynamicBus.git'
+
+    libraryVersion = '0.1.1'
+
+    developerId = 'baytsif'
+    developerName = 'or essel'
+    developerEmail = 'oressel@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        consumerProguardFiles ('proguard-rules.pro')
+    }
+}
+
+dependencies {
+    testCompile deps.junit
+    testCompile deps.assertjcore
+    testCompile deps.robolectric
+
+    compile deps.rxjava
+    compile deps.rxandroid
+    compile deps.timber
+    compile deps.androidannotations
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.hwangjr.rxbus.app"
+        applicationId "com.baytsif.rxdynamicbus.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':rxbus')
+    compile project(path: ':rx-dynamic-bus')
     compile deps.androidannotations
     compile deps.appcompatV7
     compile deps.design

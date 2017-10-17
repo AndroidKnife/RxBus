@@ -1,1 +1,1 @@
-include ':app', ':rxbus'
+include ':app', ':rx-dynamic-bus'
