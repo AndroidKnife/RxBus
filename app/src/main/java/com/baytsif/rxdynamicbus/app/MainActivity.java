@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RxBus.get().register(mouseMam);
-        RxBus.get().register(catMam.birth());
+        RxBus.getTest().register(mouseMam);
+        RxBus.getTest().register(catMam.birth());
 
-        Timber.e("Moust Mam has registed? " + RxBus.get().hasRegistered(mouseMam));
+        Timber.e("Moust Mam has registed? " + RxBus.getTest().hasRegistered(mouseMam));
     }
 
     /**
@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
-        RxBus.get().unregister(mouseMam);
+        RxBus.getTest().unregister(mouseMam);
         ArrayList<Cat> cats = catMam.getCats();
         for (Cat cat : cats) {
-            RxBus.get().unregister(cat);
+            RxBus.getTest().unregister(cat);
         }
         super.onDestroy();
     }

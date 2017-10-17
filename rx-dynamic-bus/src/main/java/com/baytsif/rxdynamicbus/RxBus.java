@@ -4,7 +4,7 @@ import com.baytsif.rxdynamicbus.thread.ThreadEnforcer;
 
 /**
  * Instance of {@link Bus}.
- * Simply use {@link #get()} to get the instance of {@link Bus}
+ * Simply use {@link #getTest()} to getTest the instance of {@link Bus}
  */
 public class RxBus {
 
@@ -18,7 +18,7 @@ public class RxBus {
      *
      * @return
      */
-    public static synchronized Bus get() {
+    public static synchronized Bus getTest() {
         if (sBus == null) {
             sBus = new Bus(ThreadEnforcer.ANY);
         }

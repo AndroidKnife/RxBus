@@ -49,7 +49,7 @@ public class MouseMam {
 class WhiteMouse implements Mouse {
     @Override
     public void squeak() {
-        RxBus.get().post(Constants.EventType.TAG_STORY, this);
+        RxBus.getTest().post(Constants.EventType.TAG_STORY, this);
     }
 
     @Override
@@ -64,7 +64,7 @@ class WhiteMouse implements Mouse {
 class BlackMouse implements Mouse {
     @Override
     public void squeak() {
-        RxBus.get().post(Constants.EventType.TAG_STORY, this);
+        RxBus.getTest().post(Constants.EventType.TAG_STORY, this);
     }
 
     @Override
@@ -79,7 +79,7 @@ class BlackMouse implements Mouse {
 class DeadMouse implements Mouse {
     @Override
     public void squeak() {
-        RxBus.get().post(this);
+        RxBus.getTest().post(this);
     }
 
     @Override
