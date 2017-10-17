@@ -6,6 +6,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -13,6 +15,9 @@ buildscript {
 }
 
 allprojects {
+
+    tasks.withType(Javadoc).all { enabled = false }
+
     repositories {
         jcenter()
         maven {
@@ -24,6 +29,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+tasks.withType(Javadoc).all { enabled = false }
 
 ext {
     minSdkVersion = 9
