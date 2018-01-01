@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -29,7 +29,7 @@ ext {
     minSdkVersion = 9
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.0'
+    buildToolsVersion = '27.0.3'
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }
@@ -46,6 +46,6 @@ ext.deps = [
         design            : 'com.android.support:design:25.4.0',
 
         rxandroid         : 'io.reactivex.rxjava2:rxandroid:2.0.1',
-        rxjava            : 'io.reactivex.rxjava2:rxjava:2.1.1',
-        timber            : 'com.jakewharton.timber:timber:4.5.1',
+        rxjava            : 'io.reactivex.rxjava2:rxjava:2.1.8',
+        timber            : 'com.jakewharton.timber:timber:4.6.0',
 ]
