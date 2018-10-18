@@ -26,7 +26,7 @@ public class EventType {
         }
 
         this.tag = tag;
-        this.clazz = clazz;
+        this.clazz = getRealClass(clazz);  //hook by getRealClass method, for kotlin
 
         // Compute hash code eagerly since we know it will be used frequently and we cannot estimate the runtime of the
         // target's hashCode call.
@@ -63,4 +63,30 @@ public class EventType {
         return tag.equals(other.tag) && clazz == other.clazz;
     }
 
+    /**
+     * getRealClass, compat to kotlin base type
+     * @param cls
+     * @return
+     */
+    private Class<?> getRealClass(Class<?> cls) {
+        String clsName = cls.getName();
+        if (int.class.getName().equals(clsName)) {
+            cls = Integer.class;
+        } else if (double.class.getName().equals(clsName)) {
+            cls = Double.class;
+        } else if (float.class.getName().equals(clsName)) {
+            cls = Float.class;
+        } else if (long.class.getName().equals(clsName)) {
+            cls = Long.class;
+        } else if (byte.class.getName().equals(clsName)) {
+            cls = Byte.class;
+        } else if (short.class.getName().equals(clsName)) {
+            cls = Short.class;
+        } else if (boolean.class.getName().equals(clsName)) {
+            cls = Boolean.class;
+        } else if (char.class.getName().equals(clsName)) {
+            cls = Character.class;
+        }
+        return cls;
+    }
 }
