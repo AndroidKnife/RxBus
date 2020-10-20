@@ -4,10 +4,10 @@ import android.os.Handler;
 
 import java.util.concurrent.Executor;
 
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.android.schedulers.HandlerScheduler;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public enum EventThread {
     /**
@@ -55,6 +55,7 @@ public enum EventThread {
     /**
      * Creates and returns a {@link Scheduler} that executes work immediately on the current thread.
      */
+    @Deprecated
     IMMEDIATE,
 
     /**
@@ -82,17 +83,15 @@ public enum EventThread {
             case COMPUTATION:
                 scheduler = Schedulers.computation();
                 break;
+            case IMMEDIATE:
             case TRAMPOLINE:
                 scheduler = Schedulers.trampoline();
-                break;
-            case IMMEDIATE:
-                scheduler = Schedulers.immediate();
                 break;
             case EXECUTOR:
                 scheduler = Schedulers.from(ThreadHandler.DEFAULT.getExecutor());
                 break;
             case HANDLER:
-                scheduler = HandlerScheduler.from(ThreadHandler.DEFAULT.getHandler());
+                scheduler =AndroidSchedulers.from(ThreadHandler.DEFAULT.getHandler().getLooper());
                 break;
             default:
                 scheduler = AndroidSchedulers.mainThread();
