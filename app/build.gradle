@@ -20,11 +20,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':rxbus')
-    compile deps.androidannotations
-    compile deps.appcompatV7
-    compile deps.design
-
-    testCompile deps.junit
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':rxbus')
+    implementation deps.androidannotations
+    implementation deps.appcompatV7
+    implementation deps.design
+    implementation deps.timber
+    testImplementation deps.junit
 }

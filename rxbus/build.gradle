@@ -12,14 +12,14 @@ android {
 }
 
 dependencies {
-    testCompile deps.junit
-    testCompile deps.assertjcore
-    testCompile deps.robolectric
+    testImplementation deps.junit
+    testImplementation deps.assertjcore
+    testImplementation deps.robolectric
 
-    compile deps.rxjava
-    compile deps.rxandroid
-    compile deps.timber
-    compile deps.androidannotations
+    implementation deps.rxjava
+    implementation deps.rxandroid
+    implementation deps.timber
+    implementation deps.androidannotations
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
