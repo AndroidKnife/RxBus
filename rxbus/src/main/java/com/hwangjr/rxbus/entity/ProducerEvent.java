@@ -2,11 +2,16 @@ package com.hwangjr.rxbus.entity;
 
 import com.hwangjr.rxbus.thread.EventThread;
 
+import org.reactivestreams.Subscriber;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+
 
 /**
  * Wraps a 'producer' method on a specific object.
@@ -73,12 +78,12 @@ public class ProducerEvent extends Event {
      * Invokes the wrapped producer method and produce a {@link Observable}.
      */
     public Observable produce() {
-        return Observable.create(new Observable.OnSubscribe<Object>() {
+        return Observable.create(new ObservableOnSubscribe() {
             @Override
-            public void call(Subscriber<? super Object> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter emitter) throws Throwable {
                 try {
-                    subscriber.onNext(produceEvent());
-                    subscriber.onCompleted();
+                    emitter.onNext(produceEvent());
+                    emitter.onComplete();
                 } catch (InvocationTargetException e) {
                     throwRuntimeException("Producer " + ProducerEvent.this + " threw an exception.", e);
                 }
