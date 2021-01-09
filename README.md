@@ -25,21 +25,21 @@ Just 2 Steps:
 
 Add dependency to your gradle file:
 ```groovy
-implementation 'com.hwangjr.rxbus:rxbus:2.0.1'
+implementation 'com.hwangjr.rxbus:rxbus:2.0.2'
 ```
 Or maven:
 ``` xml
 <dependency>
   <groupId>com.hwangjr.rxbus</groupId>
   <artifactId>rxbus</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
   <type>aar</type>
 </dependency>
 ```
 
 **TIP:** Maybe you also use the [JakeWharton/timber](https://github.com/JakeWharton/timber) to log your message, you may need to exclude the timber (from version 1.0.4, timber dependency update from [AndroidKnife/Utils/timber](https://github.com/AndroidKnife/Utils/tree/master/timber) to JakeWharton):
 ``` groovy
-implementation ('com.hwangjr.rxbus:rxbus:2.0.1') {
+implementation ('com.hwangjr.rxbus:rxbus:2.0.2') {
     exclude group: 'com.jakewharton.timber', module: 'timber'
 }
 ```

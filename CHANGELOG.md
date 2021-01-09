@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.2 *(2021-01-09)*
+---------------------------------
+
+1. Compat for the base data type of the Kotlin
+
 Version 2.0.1 *(2018-12-17)*
 ---------------------------------
 
