@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Tag {
-    static final String DEFAULT = "rxbus_default_tag";
+    String DEFAULT = "rxbus_default_tag";
 
     String value() default DEFAULT;
 }

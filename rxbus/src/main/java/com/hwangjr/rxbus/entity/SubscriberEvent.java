@@ -1,11 +1,12 @@
 package com.hwangjr.rxbus.entity;
 
+import androidx.annotation.NonNull;
+
 import com.hwangjr.rxbus.thread.EventThread;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -33,13 +34,13 @@ public class SubscriberEvent extends Event {
      */
     private final EventThread thread;
     /**
-     * RxJava {@link Subject}
-     */
-    private Subject subject;
-    /**
      * Object hash code.
      */
     private final int hashCode;
+    /**
+     * RxJava {@link Subject}
+     */
+    private Subject subject;
     /**
      * Should this Subscriber receive events?
      */
@@ -71,16 +72,13 @@ public class SubscriberEvent extends Event {
     private void initObservable() {
         subject = PublishSubject.create();
         subject.observeOn(EventThread.getScheduler(thread))
-                .subscribe(new Consumer() {
-                    @Override
-                    public void accept(Object event) {
-                        try {
-                            if (valid) {
-                                handleEvent(event);
-                            }
-                        } catch (InvocationTargetException e) {
-                            throwRuntimeException("Could not dispatch event: " + event.getClass() + " to subscriber " + SubscriberEvent.this, e);
+                .subscribe(event -> {
+                    try {
+                        if (valid) {
+                            handleEvent(event);
                         }
+                    } catch (InvocationTargetException e) {
+                        throwRuntimeException("Could not dispatch event: " + event.getClass() + " to subscriber " + SubscriberEvent.this, e);
                     }
                 });
     }
@@ -116,7 +114,7 @@ public class SubscriberEvent extends Event {
      */
     protected void handleEvent(Object event) throws InvocationTargetException {
         if (!valid) {
-            throw new IllegalStateException(toString() + " has been invalidated and can no longer handle events.");
+            throw new IllegalStateException(this + " has been invalidated and can no longer handle events.");
         }
         try {
             method.invoke(target, event);
@@ -130,6 +128,7 @@ public class SubscriberEvent extends Event {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "[SubscriberEvent " + method + "]";

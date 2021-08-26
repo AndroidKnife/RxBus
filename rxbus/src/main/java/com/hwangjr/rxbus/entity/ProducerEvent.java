@@ -1,5 +1,7 @@
 package com.hwangjr.rxbus.entity;
 
+import androidx.annotation.NonNull;
+
 import com.hwangjr.rxbus.thread.EventThread;
 
 import java.lang.reflect.InvocationTargetException;
@@ -7,7 +9,6 @@ import java.lang.reflect.Method;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 
@@ -76,15 +77,12 @@ public class ProducerEvent extends Event {
      * Invokes the wrapped producer method and produce a {@link Observable}.
      */
     public Flowable produce() {
-        return Flowable.create(new FlowableOnSubscribe() {
-            @Override
-            public void subscribe(FlowableEmitter emitter) throws Exception {
-                try {
-                    emitter.onNext(produceEvent());
-                    emitter.onComplete();
-                } catch (InvocationTargetException e) {
-                    throwRuntimeException("Producer " + ProducerEvent.this + " threw an exception.", e);
-                }
+        return Flowable.create((FlowableOnSubscribe) emitter -> {
+            try {
+                emitter.onNext(produceEvent());
+                emitter.onComplete();
+            } catch (InvocationTargetException e) {
+                throwRuntimeException("Producer " + ProducerEvent.this + " threw an exception.", e);
             }
         }, BackpressureStrategy.BUFFER).subscribeOn(EventThread.getScheduler(thread));
     }
@@ -98,7 +96,7 @@ public class ProducerEvent extends Event {
      */
     private Object produceEvent() throws InvocationTargetException {
         if (!valid) {
-            throw new IllegalStateException(toString() + " has been invalidated and can no longer produce events.");
+            throw new IllegalStateException(this + " has been invalidated and can no longer produce events.");
         }
         try {
             return method.invoke(target);
@@ -112,6 +110,7 @@ public class ProducerEvent extends Event {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "[EventProducer " + method + "]";

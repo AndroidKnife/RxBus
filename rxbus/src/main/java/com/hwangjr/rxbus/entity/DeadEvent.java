@@ -23,5 +23,4 @@ public class DeadEvent {
         this.source = source;
         this.event = event;
     }
-
 }

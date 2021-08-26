@@ -1,6 +1,6 @@
 package com.hwangjr.rxbus;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +19,14 @@ public class RxBusOlder {
 
     private ConcurrentHashMap<Object, List<Subject>> mSubjectsMapper = new ConcurrentHashMap<>();
 
+    private RxBusOlder() {
+    }
+
     public static synchronized RxBusOlder instance() {
         if (sInstance == null) {
             sInstance = new RxBusOlder();
         }
         return sInstance;
-    }
-
-    private RxBusOlder() {
     }
 
     public <T> Observable<T> register(@NonNull Object tag, @NonNull Class<T> clazz) {
@@ -40,7 +40,7 @@ public class RxBusOlder {
         Subject<T> subject = PublishSubject.create();
         subjectList.add(subject);
         if (DEBUG) {
-            Timber.d("[register] mSubjectsMapper: " + mSubjectsMapper);
+            Timber.d("[register] mSubjectsMapper: %s", mSubjectsMapper);
         }
         return subject;
     }
@@ -53,7 +53,7 @@ public class RxBusOlder {
                 mSubjectsMapper.remove(tag);
             }
             if (DEBUG) {
-                Timber.d("[unregister] mSubjectsMapper: " + mSubjectsMapper);
+                Timber.d("[unregister] mSubjectsMapper: %s", mSubjectsMapper);
             }
         }
     }
@@ -66,7 +66,7 @@ public class RxBusOlder {
             }
         }
         if (DEBUG) {
-            Timber.d("[send] mSubjectsMapper: " + mSubjectsMapper);
+            Timber.d("[send] mSubjectsMapper: %s", mSubjectsMapper);
         }
     }
 }
