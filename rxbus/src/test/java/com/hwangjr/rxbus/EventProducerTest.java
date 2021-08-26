@@ -1,5 +1,9 @@
 package com.hwangjr.rxbus;
 
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import com.hwangjr.rxbus.entity.ProducerEvent;
 import com.hwangjr.rxbus.thread.EventThread;
 
@@ -8,12 +12,6 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import rx.functions.Action1;
-
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 public class EventProducerTest {
 
@@ -37,12 +35,9 @@ public class EventProducerTest {
     public void basicMethodCall() throws Exception {
         Method method = getRecordingMethod();
         ProducerEvent producer = new ProducerEvent(this, method, EventThread.MAIN_THREAD);
-        producer.produce().subscribe(new Action1() {
-            @Override
-            public void call(Object methodResult) {
-                assertTrue("Producer must call provided method.", methodCalled);
-                assertSame("Producer result must be *exactly* the specified return value.", methodResult, FIXTURE_RETURN_VALUE);
-            }
+        producer.produce().subscribe(methodResult -> {
+            assertTrue("Producer must call provided method.", methodCalled);
+            assertSame("Producer result must be *exactly* the specified return value.", methodResult, FIXTURE_RETURN_VALUE);
         });
     }
 
@@ -107,13 +102,9 @@ public class EventProducerTest {
         producer.produce().subscribe();
         methodReturnValue = new Object();
         methodCalled = false;
-        producer.produce().subscribe(new Action1() {
-            @Override
-            public void call(Object secondReturnValue) {
-                assertTrue("Producer must call provided method twice.", methodCalled);
-                assertSame("Producer result must be *exactly* the specified return value on each invocation.",
-                        secondReturnValue, methodReturnValue);
-            }
+        producer.produce().subscribe(secondReturnValue -> {
+            assertTrue("Producer must call provided method twice.", methodCalled);
+            assertSame("Producer result must be *exactly* the specified return value on each invocation.", secondReturnValue, methodReturnValue);
         });
     }
 
@@ -145,15 +136,15 @@ public class EventProducerTest {
         throw new IntentionalException();
     }
 
+    public Object errorThrowingMethod() {
+        throw new JudgmentError();
+    }
+
     /**
      * Local exception subclass to check variety of exception thrown.
      */
     static class IntentionalException extends Exception {
         private static final long serialVersionUID = -2500191180248181379L;
-    }
-
-    public Object errorThrowingMethod() {
-        throw new JudgmentError();
     }
 
     /**

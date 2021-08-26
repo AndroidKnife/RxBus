@@ -1,5 +1,10 @@
 package com.hwangjr.rxbus;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -12,7 +17,9 @@ import com.hwangjr.rxbus.thread.ThreadEnforcer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -21,18 +28,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import rx.Subscriber;
-import rx.functions.Action1;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import io.reactivex.functions.Consumer;
 
 /**
  * Test case for {@link Bus}.
  */
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 16)
 public class BusTest {
     private static final String EVENT = "Hello World!";
@@ -362,18 +363,23 @@ public class BusTest {
         ProducerEvent event = bus.getProducerForEventType(new EventType(Tag.DEFAULT, String.class));
         event.produce().subscribe(new Subscriber() {
             @Override
+            public void onSubscribe(Subscription s) {
+                // Nothing
+            }
+
+            @Override
             public void onNext(Object o) {
                 fail("Should have failed due to exception-throwing producer.");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable t) {
                 // Expected
-                e.printStackTrace();
+                t.printStackTrace();
             }
 
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 fail("Should have failed due to exception-throwing producer.");
             }
         });
@@ -385,35 +391,12 @@ public class BusTest {
         Set<SubscriberEvent> events = bus.getSubscribersForEventType(new EventType(Tag.DEFAULT, String.class));
         assertEquals("The subscribers should be registered.", 1, events.size());
         for (SubscriberEvent event : events) {
-            event.getSubject().doOnError(new Action1<Throwable>() {
-                @Override
-                public void call(Throwable throwable) {
-                    // Expected
-                    assertEquals(throwable.getClass(), IllegalStateException.class);
-                }
+            event.getSubject().doOnError((Consumer<Throwable>) throwable -> {
+                // Expected
+                assertEquals(throwable.getClass(), IllegalStateException.class);
             });
         }
         bus.post("I love it");
-    }
-
-    private class ExceptionThrowingProducer {
-        @Produce
-        public String produceThingsExceptionally() {
-            throw new IllegalStateException("Bogus!");
-        }
-    }
-
-    private class DummySubscriber {
-        @Subscribe
-        public void subscribeToString(String value) {
-        }
-    }
-
-    private class ExceptionThrowingSubscriber {
-        @Subscribe
-        public void subscribeToString(String value) {
-            throw new IllegalStateException("Dude where's my cake?");
-        }
     }
 
     private <T> void assertContains(T element, Collection<T> collection) {
@@ -421,11 +404,32 @@ public class BusTest {
                 collection.contains(element));
     }
 
+    @Test
+    public void ignoreSyntheticBridgeMethods() {
+        SubscriberImpl catcher = new SubscriberImpl();
+        bus.register(catcher);
+        bus.post(EVENT);
+    }
+
+    public interface HierarchyFixtureInterface {
+        // Exists only for hierarchy mapping; no members.
+    }
+
+    public interface HierarchyFixtureSubinterface
+            extends HierarchyFixtureInterface {
+        // Exists only for hierarchy mapping; no members.
+    }
+
+    interface SubscriberInterface<T> {
+        @Subscribe
+        void subscribeToT(T value);
+    }
+
     /**
      * A collector for DeadEvents.
      */
     public static class GhostCatcher {
-        private List<DeadEvent> events = new ArrayList<DeadEvent>();
+        private final List<DeadEvent> events = new ArrayList<DeadEvent>();
 
         @Subscribe
         public void ohNoesIHaveDied(DeadEvent event) {
@@ -449,15 +453,6 @@ public class BusTest {
         }
     }
 
-    public interface HierarchyFixtureInterface {
-        // Exists only for hierarchy mapping; no members.
-    }
-
-    public interface HierarchyFixtureSubinterface
-            extends HierarchyFixtureInterface {
-        // Exists only for hierarchy mapping; no members.
-    }
-
     public static class HierarchyFixtureParent
             implements HierarchyFixtureSubinterface {
         // Exists only for hierarchy mapping; no members.
@@ -465,11 +460,6 @@ public class BusTest {
 
     public static class HierarchyFixture extends HierarchyFixtureParent {
         // Exists only for hierarchy mapping; no members.
-    }
-
-    interface SubscriberInterface<T> {
-        @Subscribe
-        void subscribeToT(T value);
     }
 
     static class SubscriberImpl implements SubscriberInterface<Number> {
@@ -484,11 +474,23 @@ public class BusTest {
         // As of java 8, the @Subscribe annotation will be copied over to the bridge method.
     }
 
-    @Test
-    public void ignoreSyntheticBridgeMethods() {
-        SubscriberImpl catcher = new SubscriberImpl();
-        bus.register(catcher);
-        bus.post(EVENT);
+    private class ExceptionThrowingProducer {
+        @Produce
+        public String produceThingsExceptionally() {
+            throw new IllegalStateException("Bogus!");
+        }
     }
 
+    private class DummySubscriber {
+        @Subscribe
+        public void subscribeToString(String value) {
+        }
+    }
+
+    private class ExceptionThrowingSubscriber {
+        @Subscribe
+        public void subscribeToString(String value) {
+            throw new IllegalStateException("Dude where's my cake?");
+        }
+    }
 }

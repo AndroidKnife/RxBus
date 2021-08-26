@@ -1,5 +1,8 @@
 package com.hwangjr.rxbus;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.hwangjr.rxbus.thread.ThreadEnforcer;
@@ -9,9 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 /**
  * Validate that {@link Bus} behaves carefully when listeners publish
@@ -33,6 +33,31 @@ public class ReentrantEventsTest {
 
         assertEquals("ReentrantEventHater expected 2 events",
                 Arrays.<Object>asList(FIRST, SECOND), hater.eventsReceived);
+    }
+
+    @Test
+    public void eventOrderingIsPredictable() {
+        EventProcessor processor = new EventProcessor();
+        bus.register(processor);
+
+        EventRecorder recorder = new EventRecorder();
+        bus.register(recorder);
+
+        bus.post(FIRST);
+
+        assertEquals("EventRecorder expected events in order",
+                Arrays.<Object>asList(FIRST, SECOND), recorder.eventsReceived);
+    }
+
+    public static class EventRecorder {
+        List<Object> eventsReceived = new ArrayList<Object>();
+
+        @Subscribe(
+                thread = EventThread.SINGLE
+        )
+        public void listenForEverything(Object event) {
+            eventsReceived.add(event);
+        }
     }
 
     public class ReentrantEventsHater {
@@ -61,37 +86,12 @@ public class ReentrantEventsTest {
         }
     }
 
-    @Test
-    public void eventOrderingIsPredictable() {
-        EventProcessor processor = new EventProcessor();
-        bus.register(processor);
-
-        EventRecorder recorder = new EventRecorder();
-        bus.register(recorder);
-
-        bus.post(FIRST);
-
-        assertEquals("EventRecorder expected events in order",
-                Arrays.<Object>asList(FIRST, SECOND), recorder.eventsReceived);
-    }
-
     public class EventProcessor {
         @Subscribe(
                 thread = EventThread.SINGLE
         )
         public void listenForStrings(String event) {
             bus.post(SECOND);
-        }
-    }
-
-    public class EventRecorder {
-        List<Object> eventsReceived = new ArrayList<Object>();
-
-        @Subscribe(
-                thread = EventThread.SINGLE
-        )
-        public void listenForEverything(Object event) {
-            eventsReceived.add(event);
         }
     }
 }

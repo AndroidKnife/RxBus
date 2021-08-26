@@ -14,7 +14,7 @@ import java.util.List;
  * required <em>not</em> to call ({@link #methodWithoutAnnotation(String)}).
  */
 public class StringCatcher {
-    private List<String> events = new ArrayList<String>();
+    private final List<String> events = new ArrayList<String>();
 
     @Subscribe
     public void hereHaveAString(String string) {
