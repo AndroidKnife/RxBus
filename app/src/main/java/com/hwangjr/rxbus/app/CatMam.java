@@ -13,7 +13,7 @@ import timber.log.Timber;
  * Cat mam to birth so many cat to catch mouse, it's a war!
  */
 public class CatMam {
-    private ArrayList<Cat> cats = new ArrayList<>();
+    private final ArrayList<Cat> cats = new ArrayList<>();
 
     /**
      * Birth a cat to catch mouse.

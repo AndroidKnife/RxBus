@@ -1,5 +1,7 @@
 package com.hwangjr.rxbus.app;
 
+import androidx.annotation.NonNull;
+
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -52,6 +54,7 @@ class WhiteMouse implements Mouse {
         RxBus.get().post(Constants.EventType.TAG_STORY, this);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "White Mouse: " + super.toString();
@@ -67,6 +70,7 @@ class BlackMouse implements Mouse {
         RxBus.get().post(Constants.EventType.TAG_STORY, this);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Black Mouse: " + super.toString();
@@ -82,6 +86,7 @@ class DeadMouse implements Mouse {
         RxBus.get().post(this);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Dead Mouse: " + super.toString();

@@ -1,7 +1,6 @@
 package com.hwangjr.rxbus.app;
 
 import android.app.Application;
-import android.os.Build;
 import android.os.StrictMode;
 
 import timber.log.Timber;
@@ -26,10 +25,8 @@ public class AppApplication extends Application {
                     .build());
             StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder()
                     .detectAll()
-                    .penaltyLog();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                threadPolicyBuilder.penaltyDeathOnNetwork();
-            }
+                    .penaltyLog()
+                    .penaltyDeathOnNetwork();
             StrictMode.setThreadPolicy(threadPolicyBuilder.build());
         }
     }
