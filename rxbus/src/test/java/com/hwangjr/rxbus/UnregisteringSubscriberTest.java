@@ -1,5 +1,8 @@
 package com.hwangjr.rxbus;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.entity.EventType;
@@ -19,9 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
 
 /**
  * Test case for subscribers which unregister while handling an event.

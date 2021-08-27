@@ -1,5 +1,7 @@
 package com.hwangjr.rxbus;
 
+import androidx.annotation.NonNull;
+
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.entity.DeadEvent;
@@ -18,8 +20,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import io.reactivex.functions.Consumer;
 
 
 /**
@@ -153,6 +153,7 @@ public class Bus {
         this.finder = finder;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "[Bus \"" + identifier + "\"]";
@@ -230,12 +231,9 @@ public class Bus {
     }
 
     private void dispatchProducerResult(final SubscriberEvent subscriberEvent, ProducerEvent producer) {
-        producer.produce().subscribe(new Consumer() {
-            @Override
-            public void accept(Object event) {
-                if (event != null) {
-                    dispatch(event, subscriberEvent);
-                }
+        producer.produce().subscribe(event -> {
+            if (event != null) {
+                dispatch(event, subscriberEvent);
             }
         });
     }

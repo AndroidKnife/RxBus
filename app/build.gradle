@@ -23,8 +23,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':rxbus')
     implementation deps.androidannotations
-    implementation deps.appcompatV7
-    implementation deps.design
+    implementation deps.appcompat
+    implementation deps.mdc
 
     testImplementation deps.junit
 }

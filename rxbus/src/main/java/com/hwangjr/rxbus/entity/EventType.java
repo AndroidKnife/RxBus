@@ -1,5 +1,7 @@
 package com.hwangjr.rxbus.entity;
 
+import androidx.annotation.NonNull;
+
 public class EventType {
 
     /**
@@ -34,6 +36,7 @@ public class EventType {
         hashCode = (prime + tag.hashCode()) * prime + clazz.hashCode();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "[EventType " + tag + " && " + clazz + "]";

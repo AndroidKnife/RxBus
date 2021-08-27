@@ -7,17 +7,13 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public interface ThreadHandler {
-    Executor getExecutor();
-
-    Handler getHandler();
-
-    static ThreadHandler DEFAULT = new ThreadHandler() {
+    ThreadHandler DEFAULT = new ThreadHandler() {
         private Executor executor;
         private Handler handler;
 
         @Override
         public Executor getExecutor() {
-            if(executor == null) {
+            if (executor == null) {
                 executor = Executors.newCachedThreadPool();
             }
             return executor;
@@ -25,10 +21,14 @@ public interface ThreadHandler {
 
         @Override
         public Handler getHandler() {
-            if(handler == null) {
+            if (handler == null) {
                 handler = new Handler(Looper.getMainLooper());
             }
             return handler;
         }
     };
+
+    Executor getExecutor();
+
+    Handler getHandler();
 }

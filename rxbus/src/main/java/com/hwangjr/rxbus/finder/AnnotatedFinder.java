@@ -34,6 +34,10 @@ public final class AnnotatedFinder {
     private static final ConcurrentMap<Class<?>, Map<EventType, Set<SourceMethod>>> SUBSCRIBERS_CACHE =
             new ConcurrentHashMap<>();
 
+    private AnnotatedFinder() {
+        // No instances.
+    }
+
     private static void loadAnnotatedProducerMethods(Class<?> listenerClass,
                                                      Map<EventType, SourceMethod> producerMethods) {
         Map<EventType, Set<SourceMethod>> subscriberMethods = new HashMap<>();
@@ -81,7 +85,7 @@ public final class AnnotatedFinder {
                 Subscribe annotation = method.getAnnotation(Subscribe.class);
                 EventThread thread = annotation.thread();
                 Tag[] tags = annotation.tags();
-                int tagLength = (tags == null ? 0 : tags.length);
+                int tagLength = tags.length;
                 do {
                     String tag = Tag.DEFAULT;
                     if (tagLength > 0) {
@@ -124,7 +128,7 @@ public final class AnnotatedFinder {
                 Produce annotation = method.getAnnotation(Produce.class);
                 EventThread thread = annotation.thread();
                 Tag[] tags = annotation.tags();
-                int tagLength = (tags == null ? 0 : tags.length);
+                int tagLength = tags.length;
                 do {
                     String tag = Tag.DEFAULT;
                     if (tagLength > 0) {
@@ -191,18 +195,13 @@ public final class AnnotatedFinder {
         return subscribersInMethod;
     }
 
-    private AnnotatedFinder() {
-        // No instances.
-    }
-
     private static class SourceMethod {
-        private EventThread thread;
-        private Method method;
+        private final EventThread thread;
+        private final Method method;
 
         private SourceMethod(EventThread thread, Method method) {
             this.thread = thread;
             this.method = method;
         }
     }
-
 }
