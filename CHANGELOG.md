@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.0.3 *(2021-08-27)*
+---------------------------------
+
+1. update dependencies etc. [Updates to version 2.x by SteinerOk · Pull Request #103 · AndroidKnife/RxBus](https://github.com/AndroidKnife/RxBus/pull/103)
+
 Version 2.0.2 *(2021-01-09)*
 ---------------------------------
 
